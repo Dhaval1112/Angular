@@ -1,0 +1,78 @@
+{{ form.value | json }}
+<hr />
+
+<form [formGroup]="form" class="" (submit)="submit()">
+  <input type="hidden" formControlName="id" />
+  <div class="mb-3">
+    <label for="name" class="form-label">Enter name</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="name"
+      [ngClass]="{ 'is-invalid': submitted && hasErrors('name') }"
+      id="name"
+    />
+    <div class="text-danger" *ngIf="submitted && hasErrors('name')">
+      <div *ngIf="isValid('name', 'required')">Name is required</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Enter title</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="title"
+      [ngClass]="{ 'is-invalid': submitted && hasErrors('title') }"
+      id="title"
+    />
+    <div class="text-danger" *ngIf="submitted && hasErrors('title')">
+      <div *ngIf="isValid('title', 'required')">Title is required</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="totalPages" class="form-label">Enter Total Pages</label>
+    <input
+      type="number"
+      class="form-control"
+      formControlName="totalPages"
+      [ngClass]="{ 'is-invalid': submitted && hasErrors('totalPages') }"
+      id="totalPages"
+    />
+    <div class="text-danger" *ngIf="submitted && hasErrors('totalPages')">
+      <div *ngIf="isValid('totalPages', 'required')">
+        Total pages is required to enter..!
+      </div>
+    </div>
+  </div>
+
+  <div class="form-floating">
+    <select
+      class="form-select"
+      id="floatingSelect"
+      aria-label="Floating label select example"
+      formControlName="authorId"
+      [ngClass]="{ 'is-invalid': submitted && hasErrors('authorId') }"
+    >
+      <option selected value="">Select Book's author</option>
+      <option *ngFor="let author of authors" [value]="author.id">
+        {{ author.name }}
+      </option>
+    </select>
+    <label for="floatingSelect">Select author</label>
+
+    <div *ngIf="submitted && hasErrors('authorId')" class="text-danger">
+      <div *ngIf="isValid('authorId', 'required')">
+        This field is required to select..!
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" *ngIf="id" class="btn btn-primary mt-3 float-end">
+    Update
+  </button>
+  <button type="submit" *ngIf="!id" class="btn btn-primary mt-3 float-end">
+    Create
+  </button>
+</form>

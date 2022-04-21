@@ -1,0 +1,68 @@
+<div *ngIf="books; then ifBlock; else elseBock"></div>
+<ng-template #elseBock>
+  <div class="text-center h4 h-100 align-content-center">Loading...</div>
+</ng-template>
+<ng-template #ifBlock>
+  <form class="d-flex mt-3">
+    <input
+      class="form-control me-2"
+      type="text"
+      placeholder="Search"
+      [(ngModel)]="search"
+      name="search"
+      aria-label="Search"
+    />
+    <button
+      class="btn btn-outline-success"
+      (click)="searchRecords()"
+      type="submit"
+    >
+      Search
+    </button>
+  </form>
+  <a class="btn btn-primary float-end my-3" routerLink="/book/createupdate">
+    Add Book</a
+  >
+  <table class="table table-bordered mt-30">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>totalPages</th>
+        <th>AuthorName</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>
+          {{ book.id }}
+        </td>
+        <td>
+          {{ book.name }}
+        </td>
+        <td>
+          {{ book.title }}
+        </td>
+        <td>
+          {{ book.totalPages }}
+        </td>
+        <td>
+          {{ book.authorName }}
+        </td>
+        <td>
+          <a
+            class="btn btn-warning btn-sm"
+            [routerLink]="['book/createupdate', book.id]"
+            >Update</a
+          >
+          |
+          <button class="btn btn-danger btn-sm" (click)="deleteBook(book.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

@@ -1,0 +1,39 @@
+<form [formGroup]="form" (submit)="createUpdateAuthor()">
+  <input type="hidden" formControlName="id" />
+  <div class="mb-3">
+    <label for="name" class="form-label">Enter Name</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="name"
+      [ngClass]="{ 'is-invalid': submitted && hasErrors('name') }"
+      id="name"
+    />
+    <div class="text-danger" *ngIf="submitted && hasErrors('name')">
+      <div *ngIf="isValid('name', 'required')">Name is required</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description </label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="description"
+      [ngClass]="{ 'is-invalid': submitted && hasErrors('description') }"
+      id="description"
+    />
+    <div class="text-danger" *ngIf="submitted && hasErrors('description')">
+      <div *ngIf="isValid('description', 'required')">
+        Description is required
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" *ngIf="!id" class="btn btn-primary float-end">
+    Create author
+  </button>
+  <button type="submit" *ngIf="id" class="btn btn-warning float-end">
+    Update author
+  </button>
+</form>
